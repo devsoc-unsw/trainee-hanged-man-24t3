@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import {run} from "@/database";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,17 +20,18 @@ export const metadata: Metadata = {
   description: "TowerUp",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default async function RootLayout({
+                                           children,
+                                         }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await run();
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NavBar/>
-        {children}
-      </body>
+    <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <NavBar/>
+    {children}
+    </body>
     </html>
   );
 }
